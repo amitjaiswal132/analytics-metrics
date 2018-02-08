@@ -1,0 +1,16 @@
+package rules;
+
+import com.bsb.hike.logline.RuleLogline;
+import java.util.ArrayList;
+import java.util.List;
+import com.bsb.hike.common.Metric;
+
+
+global List<Metric> metrics;
+  
+rule "sticker_dau"
+    when
+        $m : RuleLogline( getMapValue("st") == "sticker", myuser : getMapValue("distinct_id"), ts : getMapValue("ts") )
+    then
+    		metrics.add(new Metric(myuser,ts,"sticket-dau",1));
+end
